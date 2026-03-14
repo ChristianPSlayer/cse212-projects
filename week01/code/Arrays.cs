@@ -12,8 +12,22 @@ public static class Arrays
         // Remember: Using comments in your program, write down your process for solving this problem
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
+        
+        //PLan:
+        //1. Create an array of doubles with the size of length
+        //2. Use a loop to iterate through the array
+        //3. In each iteration of the loop, calculate the multiple (number * (index + 1)) and assign it to the current index of the array
+        //4. Return the filled array
 
-        return []; // replace this return statement with your own
+        double[] multiples = new double[length]; // Step 1
+        for(int i = 0; i < length; i++)// Step 2
+        {
+            multiples[i] = number *(i + 1); // Step 3
+        } 
+        
+
+
+        return multiples;// replace this return statement with your own
     }
 
     /// <summary>
@@ -29,5 +43,22 @@ public static class Arrays
         // Remember: Using comments in your program, write down your process for solving this problem
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
+
+
+        //Plan:
+        //1.Find the index where the list should be split (data.Count - amount)
+        //2.Get the first part of the list (from index 0 to split index) and store it in a temporary list
+        //3.Get the second part of the list (from split index to the end).
+        //4.Clear the original list
+        //5.Add the second part of the list to the original list.
+        //6.Add the first part of the list to the original list.
+
+        int splitIndex = data.Count - amount; // Step 1
+        List<int> firstPart = data.GetRange(0, splitIndex); // Step 2
+        List<int> secondPart =  data.GetRange(splitIndex, amount); // Step 3
+        data.Clear(); // Step 4
+        data.AddRange(secondPart); // Step 5
+        data.AddRange(firstPart); // Step 6
+
     }
 }
