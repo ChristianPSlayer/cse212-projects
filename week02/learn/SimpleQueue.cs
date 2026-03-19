@@ -10,7 +10,8 @@
         queue.Enqueue(100);
         var value = queue.Dequeue();
         Console.WriteLine(value);
-        // Defect(s) Found:
+        // Defect(s) Found:The `Dequeue` method attempts to access index [1],
+        //  but the list has only one element (index 0), which causes a crash.
 
         Console.WriteLine("------------");
 
@@ -28,7 +29,8 @@
         Console.WriteLine(value);
         value = queue.Dequeue();
         Console.WriteLine(value);
-        // Defect(s) Found: 
+        // Defect(s) Found: Skipping elements: When using the index [1], the program completely ignores the first element of the list (400 in this case)
+        //  and attempts to retrieve the second one.
 
         Console.WriteLine("------------");
 
@@ -54,7 +56,7 @@
     /// </summary>
     /// <param name="value">Integer value to add to the queue</param>
     private void Enqueue(int value) {
-        _queue.Insert(0, value);
+        _queue.Add(value);
     }
 
     /// <summary>
@@ -66,8 +68,8 @@
         if (_queue.Count <= 0)
             throw new IndexOutOfRangeException();
 
-        var value = _queue[1];
-        _queue.RemoveAt(1);
+        var value = _queue[0];
+        _queue.RemoveAt(0);
         return value;
     }
 }
