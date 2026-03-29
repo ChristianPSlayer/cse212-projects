@@ -128,7 +128,7 @@ public static class SetsAndMaps
             }
             charCount[c]--;
         }
-        return false;
+        return true;
     }
 
     /// <summary>

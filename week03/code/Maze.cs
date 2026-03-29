@@ -53,6 +53,7 @@ public class Maze
         {
             throw new InvalidOperationException("Can't go that way!");
     }
+    _currX += 1;
     }
 
     /// <summary>
