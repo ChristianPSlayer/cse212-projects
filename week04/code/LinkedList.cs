@@ -33,6 +33,18 @@ public class LinkedList : IEnumerable<int>
     public void InsertTail(int value)
     {
         // TODO Problem 1
+        Node newNode = new(value);
+        if (_tail is null)
+        {
+            _head = newNode;
+            _tail = newNode;
+        }
+        else
+        {
+             _tail.Next = newNode; // Connect the previous tail to the new node
+             newNode.Prev = _tail; // Connect the new node to the previous tail
+                _tail = newNode; // Update the tail to point to the new node
+        }
     }
 
 
@@ -65,6 +77,16 @@ public class LinkedList : IEnumerable<int>
     public void RemoveTail()
     {
         // TODO Problem 2
+        if (_head == _tail)
+        {
+            _head = null;
+            _tail = null;
+        }
+        else if (_tail is not null)
+        {
+            _tail = _tail.Prev; // Update the tail to point to the second to last node
+            _tail!.Next = null; // Disconnect the new tail from the old tail
+        }
     }
 
     /// <summary>
@@ -109,16 +131,49 @@ public class LinkedList : IEnumerable<int>
     public void Remove(int value)
     {
         // TODO Problem 3
+        Node? curr = _head;
+        while (curr is not null)
+        {
+            if (curr.Data == value)
+            {
+                if (curr == _head)
+                {
+                    RemoveHead();
+                }
+                else if (curr == _tail)
+                {
+                    RemoveTail();
+                }
+                else
+                {
+                    curr.Prev!.Next = curr.Next; // Connect the node before 'value' to the node after 'value'
+                    curr.Next!.Prev = curr.Prev; // Connect the node after 'value' to the node before 'value'
+                }
+
+                return; // We can exit the function after we remove
+            }
+
+            curr = curr.Next; // Go to the next node to search for value
+        }
     }
 
     /// <summary>
-    /// Search for all instances of 'oldValue' and replace the value to 'newValue'.
+    /// Search for all instances of 'oldValue' and replace the value to newValue.
     /// </summary>
     public void Replace(int oldValue, int newValue)
     {
         // TODO Problem 4
-    }
+        Node? curr = _head;
+        while (curr is not null)
+        {
+            if (curr.Data == oldValue)
+            {
+                curr.Data = newValue; // Replace the value of the current node with newValue
+            }
 
+            curr = curr.Next; // Go to the next node to search for oldValue
+    }
+    }
     /// <summary>
     /// Yields all values in the linked list
     /// </summary>
@@ -136,7 +191,7 @@ public class LinkedList : IEnumerable<int>
         var curr = _head; // Start at the beginning since this is a forward iteration.
         while (curr is not null)
         {
-            yield return curr.Data; // Provide (yield) each item to the user
+            yield return curr.Data; // Provide yield each item to the user
             curr = curr.Next; // Go forward in the linked list
         }
     }
@@ -147,7 +202,13 @@ public class LinkedList : IEnumerable<int>
     public IEnumerable Reverse()
     {
         // TODO Problem 5
-        yield return 0; // replace this line with the correct yield return statement(s)
+        var curr = _tail; // Start at the end since this is a backward iteration.
+        while (curr is not null)
+        {
+            yield return curr.Data; // Provide yield each item to the user
+            curr = curr.Prev; // Go backward in the linked list
+        }
+      
     }
 
     public override string ToString()
